@@ -8,11 +8,7 @@ defmodule Words do
   def count(sentence) do
      sentence
      |> String.downcase()
-     |> String.replace(~r/[^\d\s\-_a-z\pLu]/u, "")
-     |> String.replace(~r/\s{2,}/, " ")
-     |> String.split([" ", "_"])
-     |> Enum.group_by(&(&1))
-     |> Map.values()
-     |> Map.new(fn([x|y]) -> {x, Enum.count(y)+1 } end)
+     |> String.split(~r/[^\w-]+|_/u, trim: true)
+     |> Enum.reduce(%{}, fn(word, map) -> Map.update(map, word, 1, &(&1 + 1)) end)
   end
 end
