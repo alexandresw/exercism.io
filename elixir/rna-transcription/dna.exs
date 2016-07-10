@@ -10,12 +10,5 @@ defmodule DNA do
   'UGAC'
   """
   @spec to_rna([char]) :: [char]
-  def to_rna(dna) do
-    _process(dna, [])
-  end
-
-  defp _process([], result), do: result
-  defp _process([h|t], result) do
-    _process(t, result ++ [@map_dna[h]] )
-  end
+  def to_rna(dna), do: Enum.map dna, &(@map_dna[&1])
 end
